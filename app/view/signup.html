@@ -1,0 +1,47 @@
+<?php require VIEW_DIR.'header.html';?>
+
+<div class="container text-align-center">
+    <div class="row">
+        <form id="signup-form" method="post" action="?c=Admin&a=signup" onsubmit="return checkTwicePassword()">
+            <div class="form-caption">Please sign up.</div>
+            <div class="form-group">
+                <label for="accountname">
+					Accountname:
+				</label>
+                <input type="text" class="form-control" id="accountname" name="accountname" placeholder="Please input accountname">
+            </div>
+            <div class="form-group">
+                <label for="password">
+					Password:
+				</label>
+                <input type="text" class="form-control" id="password" name="password" placeholder="Please input password">
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">
+					Retype password:
+				</label>
+                <input type="text" class="form-control" id="confirm-password" placeholder="Please retype password">
+            </div>
+            <div class="show-info"></div>
+            <div class="submit-reset-button-group">
+                <button type="submit" class="btn btn-default">submit</button>
+                <button type="reset" class="btn btn-default">reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+<script>
+    $confirmPassword = $('#confirm-password');
+    function checkTwicePassword() {
+        if ($confirmPassword.val() !== $('#password').val()) {
+            $(".show-info").text('Password you twice input is different! Please check!');
+            return false;
+        };
+    }
+    $confirmPassword.on('blur', checkTwicePassword);
+
+</script>
+</body>
+
+</html>

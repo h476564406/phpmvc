@@ -1,0 +1,96 @@
+<?php require VIEW_DIR.'header.html';?>
+<style>
+    .loginContainer {
+        position: relative;
+    }
+
+    .alertModal {
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: 0 auto;
+        width: 50%;
+        height: 160px;
+        background-color: #fff;
+        border: 1px solid #333;
+        text-align: center;
+        padding-top: 20px;
+        font-size: 16px;
+    }
+
+    .closeModalButton {
+        margin-top: 20px;
+    }
+</style>
+<div class="container text-align-center loginContainer">
+    <div class="row">
+        <div class="alertModal">
+            <div class="info">
+
+            </div>
+            <div>
+                <button class="closeModalButton">close</button>
+            </div>
+        </div>
+        <form id="login-form" method="post">
+            <div class="form-caption">Please login.</div>
+            <div class="form-group">
+                <label for="accountname">
+                    accountname:
+                </label>
+                <input type="text" class="form-control" id="accountname" name="accountname" placeholder="Please input accountname">
+            </div>
+            <div class="form-group">
+                <label for="password">
+                    password:
+                </label>
+                <input type="text" class="form-control" id="password" name="password" placeholder="Please input password">
+            </div>
+            <div class="submit-reset-button-group">
+                <button type="submit" class="btn btn-default">submit</button>
+                <button type="reset" class="btn btn-default">reset</button>
+            </div>
+        </form>
+        <div style="margin-top: 20px">If you do not have account, please
+            <a href="index.php?c=Admin&a=signup">signup.</a>
+        </div>
+    </div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+<script>
+    $('.closeModalButton').on('click', function () {
+        $('.alertModal').css('display', 'none');
+    });
+
+    $("#login-form").submit(function (e) {
+        var accountname = $('#accountname').val();
+        var password = $('#password').val();
+        e.preventDefault();
+        $.ajax({
+            url: "?c=Admin&a=login",
+            type: 'POST',
+            data: {
+                accountname: accountname,
+                password: password,
+            },
+            success: function (res) {
+                var resObj = JSON.parse(res);
+                if (resObj.status === 'success') {
+                    window.location = resObj.url;
+                } else {
+                    $('.alertModal .info').text(
+                        resObj.info
+                    );
+                    $('.alertModal').css('display', 'inline-block');
+                }
+            }
+        });
+    });
+
+</script>
+</body>
+
+</html>

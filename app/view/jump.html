@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>My homework</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Use meta refresh to control time showing message, when time exceed, redirect to next router -->
+    <meta HTTP-EQUIV="Refresh" CONTENT="<?php echo $time;?>; url=<?php echo $url;?>">
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h3>
+                <?php echo $message;?> Wait
+                <?php echo $time;?> secs.</h3>
+        </div>
+    </div>
+</body>
+
+</html>

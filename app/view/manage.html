@@ -1,0 +1,185 @@
+<?php require VIEW_DIR.'header.html';?>
+<style>
+    /* User manage page style */
+
+    #manage-button-group button {
+        display: inline-block;
+        border: 1px solid #777;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 10px;
+    }
+    /* Special style in this page */
+
+    form {
+        display: none;
+    }
+
+    #user-id-in-update-form {
+        display: none;
+    }
+</style>
+<div class="container manage-page text-align-center">
+    <div class="row">
+        <table border="1">
+            <div class="row">
+                <h3>User Details</h3>
+            </div>
+            <tr>
+                <th>id</th>
+                <th>accountname</th>
+                <th>nickname</th>
+                <th>password</th>
+                <th>email</th>
+            </tr>
+            <?php foreach($userRecords as $item):?>
+            <tr>
+                <?php foreach($item as $key => $value):?>
+                <td>
+                    <?php echo $value;?>
+                </td>
+                <?php endforeach;?>
+            </tr>
+            <?php endforeach;?>
+        </table>
+    </div>
+    <div class="row">
+        <h4 class="guide-text">Click button to change user data.</h4>
+    </div>
+    <div class="row" id="manage-button-group">
+        <button id="insert-button">Insert</button>
+        <button id="update-button">Update</button>
+        <button id="delete-button">Delete</button>
+        <button id="search-button">Search</button>
+    </div>
+    <div class="row">
+        <form id="insert-or-update-form" method="post" action="?c=Admin&a=insert">
+            <div class="form-caption">Insert</div>
+            <div class="form-group" id="user-id-in-update-form">
+                <label for="id">
+							id:
+						</label>
+                <input type="text" class="form-control" id="id" name="id" placeholder="Please input id">
+            </div>
+            <div class="form-group">
+                <label for="accountname">
+							accountname:
+						</label>
+                <input type="text" class="form-control" id="accountname" name="accountname" placeholder="Please input accountname">
+            </div>
+            <div class="form-group">
+                <label for="nickname">
+							nickname:
+						</label>
+                <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Please input nickname">
+            </div>
+            <div class="form-group">
+                <label for="password">
+							password:
+						</label>
+                <input type="text" class="form-control" id="password" name="password" placeholder="Please input password">
+            </div>
+            <div class="form-group">
+                <label for="email">
+							email:
+						</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Please input email">
+            </div>
+            <div class="submit-reset-button-group">
+                <button type="submit" class="btn btn-default">submit</button>
+                <button type="reset" class="btn btn-default">reset</button>
+            </div>
+        </form>
+        <form id="delete-form" method="post" action="?c=Admin&a=delete">
+            <div class="form-caption">Delete here</div>
+            <div class="form-group">
+                <label for="delete_id">
+							id:
+						</label>
+                <input type="text" class="form-control" id="delete_id" name="id" placeholder="Please input id">
+            </div>
+            <div class="submit-reset-button-group">
+                <button type="submit" class="btn btn-default">submit</button>
+                <button type="reset" class="btn btn-default">reset</button>
+            </div>
+        </form>
+        <form id="search-form">
+            <div class="form-caption">Search here</div>
+            <div class="form-group">
+                <label for="search_id">
+							id:
+						</label>
+                <input type="text" class="form-control" id="search_id" name="id" placeholder="Please input id">
+            </div>
+            <div class="submit-reset-button-group">
+                <button type="submit" class="btn btn-default">submit</button>
+                <button type="reset" class="btn btn-default">reset</button>
+            </div>
+        </form>
+    </div>
+    <div class="show-info"></div>
+</div>
+
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+<script>
+    var userRecordsStr = '<?php echo $userRecordsStr ;?>';
+    var userRecordsObj = JSON.parse(userRecordsStr);
+
+    $insertOrUpdateForm = $('#insert-or-update-form');
+    $formCaption = $('#insert-or-update-form .form-caption');
+    $searchForm = $('#search-form');
+    $deleteForm = $('#delete-form');
+    $userIdInUpdateForm = $('#user-id-in-update-form');
+
+    $('#insert-button').on('click', function () {
+        $formCaption.text('Insert here');
+        $insertOrUpdateForm.attr("action", '?c=Admin&a=insert');
+        $insertOrUpdateForm.css('display', 'block');
+        $searchForm.css('display', 'none');
+        $deleteForm.css('display', 'none');
+        $userIdInUpdateForm.css('display', 'none');
+    });
+
+    $('#update-button').on('click', function () {
+        $formCaption.text('Update here');
+        $insertOrUpdateForm.attr("action", '?c=Admin&a=update');
+        $insertOrUpdateForm.css('display', 'block');
+        $searchForm.css('display', 'none');
+        $deleteForm.css('display', 'none');
+        $userIdInUpdateForm.css('display', 'block');
+    });
+
+    $('#delete-button').on('click', function () {
+        $insertOrUpdateForm.css('display', 'none');
+        $searchForm.css('display', 'none');
+        $deleteForm.css('display', 'block');
+    });
+
+    $('#search-button').on('click', function () {
+        $insertOrUpdateForm.css('display', 'none');
+        $deleteForm.css('display', 'none');
+        $searchForm.css('display', 'block');
+    });
+
+    $("#search-form").submit(function (e) {
+        e.preventDefault();
+        var search_id = $('#search_id').val();
+        if (typeof (userRecordsObj[search_id]) !== 'undefined') {
+            var searchRecord = userRecordsObj[search_id];
+            var thStr = '<table><tr>';
+            var tdStr = '<tr>';
+            for (var x in searchRecord) {
+                tdStr += '<td>' + searchRecord[x] + '</td>';
+                thStr += '<th>' + x + '</th>';
+            }
+            thStr += '</tr>';
+            tdStr += '</tr><table>';
+            $(".show-info").html(thStr + tdStr);
+        } else {
+            $(".show-info").text('The id not exist! Please input again');
+        }
+    });
+</script>
+</body>
+
+</html>
