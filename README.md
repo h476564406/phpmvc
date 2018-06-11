@@ -62,5 +62,3 @@ DocumentRoot "/Applications/XAMPP/xamppfiles/htdocs/phpmvc"
 登录了才能管理
 
 ![登录了才能管理](http://47.96.13.73/dist/3.png)
-
-
