@@ -106,7 +106,6 @@ class AdminController extends BackPlatformController
 
     public function manageAction()
     {
-        var_dump($_SESSION);
         $userRecords = $this->usermodel->getUserRecords();
 
         $userRecordsStr = json_encode($userRecords);
