@@ -1,5 +1,5 @@
 
-#phpmvc
+# phpmvc
 这是一个简陋的mvc框架。用来理解网页响应的流程和前后端沟通。
 
 * 借这个框架使用原始的php函数来实现类的自动加载， 图片上传， 根据url分配路由等功能。。 
@@ -42,7 +42,7 @@ DocumentRoot "/Applications/XAMPP/xamppfiles/htdocs/phpmvc"
 </Directory>
 
 ```
-#首页效果
+# 首页效果
 尝试注册然后登录，实现了一个登录后才能管理用户的功能。
 
 
