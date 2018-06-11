@@ -1,9 +1,9 @@
 
-[phpmvc](https://github.com/h476564406/phpmvc#phpmvc%E7%9A%84%E5%90%AF%E5%8A%A8)
+[phpmvc](https://github.com/h476564406/phpmvc#phpmvc)
 
 [phpmvc的启动](https://github.com/h476564406/phpmvc#phpmvc%E7%9A%84%E5%90%AF%E5%8A%A8)
 
-[效果](https://github.com/h476564406/phpmvc#phpmvc%E7%9A%84%E5%90%AF%E5%8A%A8)
+[效果](https://github.com/h476564406/phpmvc#%E6%95%88%E6%9E%9C)
 
 # phpmvc
 这是一个简陋的mvc框架。用来理解网页响应的流程和前后端沟通。
